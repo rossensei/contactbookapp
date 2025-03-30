@@ -1,0 +1,87 @@
+@import forms.ContactForm._
+@import java.util.UUID
+@import helper._
+
+@(contactForm: Form[ContactData], id: UUID)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@main("Edit contact") {
+	<div class="py-12">
+		<div class="w-full max-w-lg mx-auto">
+			<a href="/" class="block text-sm hover:underline">Back</a>
+			<h1 class="mt-4 text-2xl font-semibold text-gray-700">Edit contact</h1>
+
+			<div class="mt-6">
+
+				@if(contactForm.hasGlobalErrors) {
+					<div class="text-sm text-red-600">
+						<ul>
+						@for(error <- contactForm.globalErrors) {
+						  <li>@error.message</li>
+						}
+						</ul>
+					</div>
+				}
+	  		    @form(routes.HomeController.update(id)) {
+	  		    	@CSRF.formField
+	  		    	<input type="hidden" name="_method" value="PATCH">
+	  		    	<div>
+	  		    		@inputText(
+		  		    		contactForm("firstName"),
+		  		    		Symbol("id") -> "firstName",
+		  		    		Symbol("name") -> "firstName",
+		  		    		Symbol("type") -> "text",
+		  		    		Symbol("class") -> "block text-sm w-full border-gray-300 rounded-lg",
+		  		    		Symbol("_label") -> "First name"
+		  		    	)
+	  		    	</div>
+
+	  		    	<div class="mt-4">
+	  		    		@inputText(
+		  		    		contactForm("middleName"),
+		  		    		Symbol("id") -> "middleName",
+		  		    		Symbol("name") -> "middleName",
+		  		    		Symbol("type") -> "text",
+		  		    		Symbol("class") -> "block text-sm w-full border-gray-300 rounded-lg",
+		  		    		Symbol("_label") -> "Middle name"
+		  		    	)
+	  		    	</div>
+
+	  		    	<div class="mt-4">
+	  		    		@inputText(
+		  		    		contactForm("lastName"),
+		  		    		Symbol("id") -> "lastName",
+		  		    		Symbol("name") -> "lastName",
+		  		    		Symbol("type") -> "text",
+		  		    		Symbol("class") -> "block text-sm w-full border-gray-300 rounded-lg",
+		  		    		Symbol("_label") -> "Last name"
+		  		    	)
+	  		    	</div>
+
+	  		    	<div class="mt-4">
+	  		    		@inputText(
+		  		    		contactForm("email"),
+		  		    		Symbol("id") -> "email",
+		  		    		Symbol("name") -> "email",
+		  		    		Symbol("type") -> "email",
+		  		    		Symbol("class") -> "block text-sm w-full border-gray-300 rounded-lg",
+		  		    		Symbol("_label") -> "Email"
+		  		    	)
+	  		    	</div>
+
+	  		    	<div class="mt-4">
+	  		    		@inputText(
+		  		    		contactForm("phoneNumber"),
+		  		    		Symbol("id") -> "phoneNumber",
+		  		    		Symbol("name") -> "phoneNumber",
+		  		    		Symbol("type") -> "text",
+		  		    		Symbol("class") -> "block text-sm w-full border-gray-300 rounded-lg",
+		  		    		Symbol("_label") -> "Phone number"
+		  		    	)
+	  		    	</div>
+
+	  		    	<button type="submit" class="mt-4 block text-sm w-full px-4 py-2 text-sm text-white font-medium bg-blue-600 hover:bg-blue-500 rounded-lg">Update details</button>
+	  		    }
+			</div>
+		</div>
+	</div>
+}

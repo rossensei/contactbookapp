@@ -1,0 +1,28 @@
+@import models.domains.Contact
+
+@(contacts: Seq[Contact])
+
+@main("Contact Book") {
+  <div class="py-12">
+    <div class="w-full max-w-lg mx-auto">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-semibold text-gray-700">Contact Book</h1>
+        <a href="/contacts/create" class="block px-4 py-2 text-sm text-white font-medium bg-blue-700 hover:bg-blue-600 rounded-lg">Add</a>
+      </div>
+
+      <div class="mt-6">
+        <ul>
+          @for(contact <- contacts) {
+            <li>
+              <div>@contact.firstName @contact.middleName @contact.lastName - @contact.email</div>
+              <div>
+                <a href="/contacts/edit/@contact.id" class="text-sm hover:underline">Edit</a>
+                <a href="/contacts/delete/@contact.id" class="text-sm hover:underline">Delete</a>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+}
