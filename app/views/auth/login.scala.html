@@ -1,0 +1,41 @@
+@import helper._
+@import forms.LoginForm.LoginData
+
+@(loginForm: Form[LoginData])(implicit request: RequestHeader, messsagesProvider: MessagesProvider)
+
+@main("Login") {
+	<div class="py-20">
+		<div class="w-full max-w-lg mx-auto">
+			<h1 class="text-2xl font-semibold">Login your account</h1>
+
+			<div class="mt-6">
+				@form(routes.AuthController.authenticate()) {
+					@CSRF.formField
+					<div>
+						@inputText(
+							loginForm("email"),
+							Symbol("id") -> "email",
+		  		    		Symbol("name") -> "email",
+		  		    		Symbol("type") -> "email",
+		  		    		Symbol("class") -> "block text-sm w-full border-gray-300 rounded-lg",
+		  		    		Symbol("_label") -> "Email"
+						)
+					</div>
+
+					<div class="mt-4">
+						@inputText(
+							loginForm("password"),
+							Symbol("id") -> "password",
+		  		    		Symbol("name") -> "password",
+		  		    		Symbol("type") -> "password",
+		  		    		Symbol("class") -> "block text-sm w-full border-gray-300 rounded-lg",
+		  		    		Symbol("_label") -> "Password"
+						)
+					</div>
+
+					<button type="submit" class="mt-4 block text-sm w-full px-4 py-2 text-sm text-white font-medium bg-blue-600 hover:bg-blue-500 rounded-lg">Login</button>
+				}
+			</div>
+		</div>
+	</div>
+}
